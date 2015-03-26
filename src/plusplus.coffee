@@ -100,13 +100,8 @@ module.exports = (robot) ->
     reason = reason?.trim().toLowerCase()
     name = (name.replace /(^\s*@)|([,:\s]*$)/g, "").trim().toLowerCase() if name
 
-    isAdmin = @robot.auth?.hasRole(user, 'plusplus-admin') or @robot.auth?.hasRole(user, 'admin')
-
-    if not @robot.auth? or isAdmin
-      erased = scoreKeeper.erase(name, from, room, reason)
-    else
-      return msg.reply "Sorry, you don't have authorization to do that."
-
+    erased = scoreKeeper.erase(name, from, room, reason)
+    
     if erased?
       message = if reason?
                   "Erased the following reason from #{name}: #{reason}"
